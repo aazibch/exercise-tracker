@@ -1,9 +1,18 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const exercise = require('./routes/exercise');
 
-mongoose.connect('mongodb://localhost/exercise-tracker', {
+const databaseUri = process.env.MONGO_URI.replace(
+    '<password>',
+    process.env.MONGO_PASSWORD
+).replace(
+    '<dbname>',
+    process.env.DB_NAME
+);
+
+mongoose.connect(databaseUri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
